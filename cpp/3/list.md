@@ -10,4 +10,4 @@ We will learn FUNCTION in this chapter.
 
 1. Declaration and call 
 2. Definition
-3, Standard of function call
+3. Standard of function call
