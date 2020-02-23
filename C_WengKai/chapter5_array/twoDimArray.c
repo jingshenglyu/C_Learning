@@ -15,6 +15,8 @@ int main()
         {
             //带间距输出
             //printf("%-2d\x20\n", a[i][j]);
+            /*读入数组*/
+            /*scanf("%d", &variable[i][j]);*/
             printf("%d", a[i][j]);
         }
         printf("\n");
