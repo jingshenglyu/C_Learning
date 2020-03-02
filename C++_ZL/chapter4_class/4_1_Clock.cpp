@@ -34,7 +34,8 @@ int main()
     myClock.setTime();  //set the time using default value
     myClock.showTime(); //show this time
     cout << "Second time set and output:" << endl;
-    myClock.setTime(8,30,19); 
+    myClock.setTime(8,30,19);
+    myClock.setTime(10); 
     myClock.showTime();
 
     return 0;
