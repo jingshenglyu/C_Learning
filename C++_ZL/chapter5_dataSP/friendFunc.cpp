@@ -36,5 +36,4 @@ int main()
     cout << dist(p1, p2) << endl;
 
     return 0;
-
 }
