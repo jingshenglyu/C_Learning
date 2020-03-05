@@ -1,7 +1,7 @@
 obj = main.o Point.o
 
-point: $(obj)
-	g++ $(obj) -o point
+main: $(obj)
+	g++ $(obj) -o main
 
 main.o: main.cpp point.h
 	g++ -c main.cpp
@@ -9,5 +9,7 @@ main.o: main.cpp point.h
 Point.o: Point.cpp point.h
 	g++ -c Point.cpp
 
+.PHONY:clean  #phony target	
 clean:
-	rm -f main.o Point.o
+	rm *.o #clean all .o files
+
