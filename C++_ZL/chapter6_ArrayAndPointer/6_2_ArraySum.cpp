@@ -18,7 +18,7 @@ void rowSum(int a[][4], int nRow) // Calculate the sum of the 2-dim array's row
 int main()
 {
     int table[3][4] = { {1,2,3,4}, {2,3,4,5}, {3,4,5,6} };  // Init an array
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++) // Output the elements of this array
     {
         for (int j = 0; j < 4; j++)
         {
@@ -27,6 +27,7 @@ int main()
         cout << endl;
     }
     rowSum(table, 3);
+    /*用数组名作实参，其实就是将主函数定义的数组的首地址，传给了定义函数*/
     for (int i = 0; i < 3; i++)
     {
         cout << "Sum of row " << i << " is " << table[i][0] << endl;
