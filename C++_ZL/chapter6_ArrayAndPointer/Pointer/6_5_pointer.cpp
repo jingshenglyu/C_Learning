@@ -13,5 +13,5 @@ int main()
     cout << "*ptr = " << *ptr << endl;  //输出int型指针所指的地址
     
     return 0;
-
+    
 }
