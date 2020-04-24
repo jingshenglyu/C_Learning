@@ -8,7 +8,7 @@ class Point
 public:
     Point(int x = 0, int y = 0) : x(x), y(y) {}
 
-    int getX() const { return x; }
+    int getX() const { return x; } //相当于return this -> x;
     int getY() const { return y; }
 
 private:
