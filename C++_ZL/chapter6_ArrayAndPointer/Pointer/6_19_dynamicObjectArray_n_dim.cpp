@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace std;
 
+
 int main()
 {
     int(*cp)[9][8] = new int[7][9][8];
