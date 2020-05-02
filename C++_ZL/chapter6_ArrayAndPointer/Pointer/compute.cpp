@@ -6,6 +6,7 @@ int compute(int a, int b, int(*func)(int, int))
     return func(a,b);
 }
 
+
 int max(int a, int b) // find max
 { return ((a>b)?a:b);}
 
