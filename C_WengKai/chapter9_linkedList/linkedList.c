@@ -10,6 +10,7 @@ struct Student
     Student *next;
 };
 
+
 // global variable
 Student ss[4] =
 {
