@@ -4,6 +4,7 @@
 using namespace std;
 
 template<class T>   //define the function template
+
 void outputArray(const T*array, int count)  
 {
     for (int i=0; i < count; i++)
