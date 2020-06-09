@@ -2,8 +2,8 @@
  * @Author: Jingsheng Lyu
  * @Date: 2020-06-08 17:23:44
  * @LastEditors: Jingsheng Lyu
- * @LastEditTime: 2020-06-08 20:32:57
- * @FilePath: /C_Learning/Cpp/README.md
+ * @LastEditTime: 2020-06-09 20:54:31
+ * @FilePath: /C_Learning/README.md
 --> 
 
 <!-- TOC -->
@@ -18,8 +18,11 @@
     - [0.6 Return](#06-return)
     - [0.7 Deeper look](#07-deeper-look)
     - [Summary for CH0](#summary-for-ch0)
-- [CH1](#ch1)
-- [CH2](#ch2)
+- [CH1 Working with strings](#ch1-working-with-strings)
+    - [1.1 Input](#11-input)
+    - [1.2 Framing a name](#12-framing-a-name)
+    - [Summary for CH1](#summary-for-ch1)
+- [CH2 Looping and counting](#ch2-looping-and-counting)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -90,16 +93,100 @@ pass the value: It appears between `return` and the semicolon`;`. Its type is th
 7. Braces and semicolon: The statements between a pair of matching braces constitute a scope. An **expression** followed by a semicolon is a statement, called an **statement**.
 8. Output: pass a value.
 
+# CH1 Working with strings
+## 1.1 Input
+```
+#include<iostream>
+#include<string>
 
+int main()
+{
+    //input the name
+    std::cout << "Please enter your name: ";
+    // read the name
+    std::string name;   //define a name with 'String'
+    std::cin >> name;   //read this name
 
+    //output the reagrd for this person
+    std::cout << "Hello, " << name << "!" << std::endl;
+    
+    return 0;
+}
+```
+* Variable: If we want to **read input**, we must have a place to put it. This place is called a **variable**. A variable is an **object** that has a name.
+* Object: A **object** is a part of the computer's memory that has a type.
+* Defiition: `std::string name;`. This expression define a variable `name`, its type is `std::string`. Because it appears in the function's body. It`name` is a **local variable**. It exists **only** while the part of the program within **the braces** is executing.   
+  *  The **limited lifetime** of *local variable* is one reason that it is importtant to distinguish between **variables** and **objects**.
 
+* Interface: The **collection of operations** are interface. 
 
+* Date flow: In general, the input-output library saves its output in an internal data structure called **a buffer**, which it uses to optimize output operations.
 
+## 1.2 Framing a name
+* **' '** and **" "**: We must know when should we use **quotation mark**.
+    * **' '**: for **single** string
+    * **" "**: for **character string**
+```
+#include <iostream>
+#include <string>
 
+int main()
+{
+    // input the name
+    std::cout << "Please enter your name: ";
+    // read the name
+    std::string name; // define a name with 'String'
+    std::cin >> name; // read this name
 
-# CH1
+    // build the message that we want to output
+    const std::string greeting = "Hello, " + name + "!";
 
-# CH2
+    // build the second and fourth lines of the output
+    const std::string spaces(greeting.size(), ' ');
+    const std::string second = "* " + spaces + " *";
+
+    // build the first and fifth lines of the output
+    std::string first(second.size(), '*');
+
+    // output
+    std::cout << std::endl;
+    std::cout << first << std::endl;
+    std::cout << second << std::endl;
+    std::cout << "* " << greeting << " *" << std::endl;
+    std::cout << second << std::endl;
+    std::cout << first << std::endl;
+
+    return 0;
+}
+```
+* Assignment: We use `=` to assign the value to the variable.
+
+* `const std::string greeting = "Hello, " + name + "!";`  
+    * **Overload**: In this expression, we use `+` to **concatenate** a string and a string literal([CH10]()). This **operator** is different as this **+** operator(`3 + 4`). We say that the operator is **overloaded**.
+
+    * **const**: When we write `const` before this expression, we **aren't** going to **change the value** of the variable for *the rest of its lifetime*.
+
+* `const std::string spaces(greeting.size(), ' ');`  
+    * In this case we tell the implementation to **construct** the variable. We can also use `=` to build a variable(`greeting = "Hello, " + name + "!"`). It depends on its **type** how a variable is constructed. 
+    * `greeting.size()` is a **member function**. The object named `greeting` has a component named `size()`. This **component** is a function. With calling this function we can get a `int` number.
+    * `' '` is a character literal. **Character literals** are different from **string literals**[CH10]().
+    * We can check this expression `std::string stars(10, '*')`. With this expression `stars.size()` = 10, `stars` contain **********.
+
+## Summary for CH1
+* char: built-in type, holds ordinary characters
+* wchar_t: wide character, holds characters for languages such as Japaness
+* string type, define in <string>. If n is `int`, c is `char`, is is `input stream` and os is `output stream`
+    * `std::string s;`: define `s` as a variable, type is `char`
+    * `std::string t = s;`: `t` as a variable, `s` can be a `string` or `string literal`.
+    * `std::string z(n, c);`: `z` as a variable, `n` is the number of `character c`. `c` must be **a char**.
+    * `s + t`: The result is **string**. The result contains a copy of the characters in `s` followed by a copy of the characters in `t`.
+    * `s.size()`: The number  of characters in `s`.
+* Variables can be defined  
+    1. `std::string hello = "Hello";  // initial value`
+    2. `std::string stars(100, '*');  // construct the cariable`
+    3. `std::string name;             // define a variable with an implicit initialization. This variable depends on its type`
+
+# CH2 Looping and counting
 
 
 
