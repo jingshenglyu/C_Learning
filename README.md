@@ -23,6 +23,13 @@
     - [1.2 Framing a name](#12-framing-a-name)
     - [Summary for CH1](#summary-for-ch1)
 - [CH2 Looping and counting](#ch2-looping-and-counting)
+    - [2.1. Question:](#21-question)
+    - [2.2. Writing an unknown number of rows](#22-writing-an-unknown-number-of-rows)
+        - [2.2.1. While statement](#221-while-statement)
+        - [2.2.2. Design for while-loop](#222-design-for-while-loop)
+    - [2.3. Writing a row](#23-writing-a-row)
+    - [2.4. Writing border characters](#24-writing-border-characters)
+    - [2.5. Writing nonborder characters](#25-writing-nonborder-characters)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -187,9 +194,131 @@ int main()
     3. `std::string name;             // define a variable with an implicit initialization. This variable depends on its type`
 
 # CH2 Looping and counting
+```
+#include <iostream>
+#include <string>
+// say what standard-library names we use
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+int main()
+{
+    // ask for the person's name
+    cout << "Please enter your first name: ";
+    // read the name
+    string name;
+    cin >> name;
+    // build the message that we intend to write
+    const string greeting = "Hello, " + name + "!";
+    // the number of blanks surrounding the greeting
+    const int pad = 1;
+    // the number of rows and columns to write
+    const int rows = pad * 2 + 3;
+    const string::size_type cols = greeting.size() + pad * 2 + 2;
+    // write a blank line to separate the output from the input
+    cout << endl;
+    // write rows rows of output
+    // invariant: we have written r rows so far
+    for (int r = 0; r != rows; ++r)
+    {
+        string::size_type c = 0;
+        // invariant: we have written c characters so far in the current row
+        while (c != cols)
+        {
+            // is it time to write the greeting?
+            if (r == pad + 1 && c == pad + 1)
+            {
+                cout << greeting;
+                c += greeting.size();
+            }
+            else
+            {
+                // are we on the border?
+                if (r == 0 || r == rows - 1 ||
+                    c == 0 || c == cols - 1)
+                    cout << "*";
+                else
+                    cout << " ";
+                ++c;
+            }
+        }
+        cout << endl;
+    }
+    return 0;
+}
+```
 
+## 2.1. Question:
+* The code of §1.2. **isn't** easily to **change**. If we want to make a simple change to the output format, we must **rewrite** the program. 
 
+## 2.2. Writing an unknown number of rows
+* How many rows should we output?   
+    1. the number of blanks aroun the greeting:  
+        const int pad = 1;
+    
+    2. total number of rows to write:  
+        const int rows = pad * 2 + 3;
+        
+### 2.2.1. While statement
+* The followed code is **while statement**.   
+```
+while (condition)
+    statement   // Here is often called the while body
+```
+* For this statement, it can be just **a statement**(end with ";"), but it can also be **a blcok**(end with "}"). From [CH0.7]() we know that a blcok is **a scope**.
 
+* In this example, we use two operator `!=` and `++`. 
+    * This expression `r != rows` is **bool**. It returns only `True` or `False`. 
+    * `++` is **increment operator**. `++r` can also be written `r = r + 1`. For [CH5.1.2]() is `++` so important.
+
+### 2.2.2. Design for while-loop
+* A while finishes means its condition is **false**. 
+* **Loop invariant**: It is a good property for while-loop. The while-loop is about to test its conditon and the loop invariant will be **true**. 
+
+## 2.3. Writing a row
+* Calculate the number of **characters** for one line.   
+This number is the "size of `greeting`" + "pad * 2"(2 multiply the number of pad) + 2(the number of '*').  
+* Code is:  
+`const string::size_type cols = greeting.size() + pad * 2 + 2;`
+    * We define a **const** for `cols`. If it will be defined and it can't be changed. 
+    * This type(`std::string::size_type`) is a type of **variable** to contain the size of a string. We can also use `int`. But there is a risk because of a too long string. **It's a good habit to use the type that the library defines as being appropriate for the specific purpose. 
+    * `std::string::size_type` is also an **unsigned** type-objects([CH8.1.3]()) because it isn't a negative number.
+
+## 2.4. Writing border characters
+```
+while (c != cols)
+{
+    // is it time to write the greeting?
+    if (r == pad + 1 && c == pad + 1)
+    {
+        cout << greeting;
+        c += greeting.size();
+    }
+    else
+    {
+        // are we on the border?
+        if (r == 0 || r == rows - 1 ||
+            c == 0 || c == cols - 1)
+            cout << "*";
+        else
+            cout << " ";
+        ++c;
+    }
+}
+```
+* **if statement**: which we use to determine whether it is time to write an asterisk(*). 
+```
+if(condition)
+    statement1
+else
+    statement2
+```
+* **Logical operators**: `r == 0 || r == rows-1 || c == 0 || c == cols-1`  
+`=`: assignment  
+`==`: test for equality
+
+## 2.5. Writing nonborder characters
 
 
 
