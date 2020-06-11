@@ -2,7 +2,7 @@
  * @Author: Jingsheng Lyu
  * @Date: 2020-06-08 17:23:44
  * @LastEditors: Jingsheng Lyu
- * @LastEditTime: 2020-06-09 20:54:31
+ * @LastEditTime: 2020-06-11 18:48:47
  * @FilePath: /C_Learning/README.md
 --> 
 
@@ -30,6 +30,12 @@
     - [2.3. Writing a row](#23-writing-a-row)
     - [2.4. Writing border characters](#24-writing-border-characters)
     - [2.5. Writing nonborder characters](#25-writing-nonborder-characters)
+    - [2.6. Optimizazion](#26-optimizazion)
+        - [2.6.1.](#261)
+        - [2.6.2. For-looping replace While-looping](#262-for-looping-replace-while-looping)
+        - [2.7. Counting](#27-counting)
+    - [Summary for CH2](#summary-for-ch2)
+- [CH3 Working with batches of data](#ch3-working-with-batches-of-data)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -319,9 +325,134 @@ else
 `==`: test for equality
 
 ## 2.5. Writing nonborder characters
+* What are not **nonborder** characters?
+    * space or part of the greeting.
+* Output, whether we should output `*`, or `" "`.
+```
+if (r == 0 || r == rows - 1 || c == 0 || c == cols - 1)
+    cout << "*";
+else
+    cout << " ";
+++c;
+```
+## 2.6. Optimizazion
+### 2.6.1.
+* **Using declaration**: We can use `using std::cout` at first to declare scope. Then in our code, we don't need to write `std::` every time.
 
+### 2.6.2. For-looping replace While-looping
+* We can use:
+```
+for(r = 0; r != rows; ++r) {
+    statement;
+}
+```
+replace
+```
+int r = 0;
+while (r != rows) {
+    statement;
+    ++r;
+}
+```
+### 2.7. Counting
+* We should use **[0, rows)** to make a condition for looping instead of [1, rows], because we can count directly the number of looping, that is rows - 0.
 
+## Summary for CH2
+* operands' order
+* operators' **precedence** ([C++ Operator Precedence Table](https://en.cppreference.com/w/cpp/language/operator_precedence))
+* Usual arithmetic conversions
+* Half-open range [0, rows)
+* Looping (include conditions and statements)
 
+# CH3 Working with batches of data
+
+* By writing a program that **reads** a student's exam and homework **grades** and *computes a final grade*.
+* Rules: final exam for 40%, midterm for 20% and the **average homework grade** for 40%, together are final grade.
+```
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
+using std::cin;
+using std::cout;
+using std::endl;
+using std::setprecision;
+using std::streamsize;
+using std::string;
+int main()
+{
+    // ask for and read the student's name
+    cout << "Please enter your first name: ";
+    string name;
+    cin >> name;
+    cout << "Hello, " << name << "!" << endl;
+    // ask for and read the midterm and final grades
+    cout << "Please enter your midterm and final exam grades: ";
+    double midterm, final;
+    cin >> midterm >> final;
+    // ask for the homework grades
+    cout << "Enter all your homework grades, "
+            "followed by end-of-file: ";
+    // the number and sum of grades read so far
+    int count = 0;
+    double sum = 0;
+    // a variable into which to read
+    double x;
+    // invariant:
+    // we have read count grades so far, and
+    // sum is the sum of the first count grades
+    while (cin >> x)
+    {
+        ++count;
+        sum += x;
+    }
+    // write the result
+    streamsize prec = cout.precision();
+    cout << "Your final grade is " << setprecision(3)
+         << 0.2 * midterm + 0.4 * final + 0.4 * sum / count
+         << setprecision(prec) << endl;
+    return 0;
+}
+```
+* For this problem we should have 3 steps.  
+    1. Read the name of this student.
+    2. Read the midterm and final grade.
+    3. Calculate the average grades.  
+        * Count the number and the grade of the homeworks,  and make a sum
+
+* We use 2 header to solve this problem.   
+    * `<ios>` --> define a type **streamsize**: `streamsize` is the type that the io library uses to represent **sizes**.
+    * `<iomanip>` --> define a munipulator `setprecision`
+        * C++ put the `endl` into the `<iostream>` because it is usually used.
+
+* The program will ask for the student's homework grades, which it continues to read. We should use **end-of-file signal** to finish it.  
+    * For windows **CTRL + Z**
+    * For Unix/Linux **CTRL + D**
+
+* **double** better as float 
+
+* If a statement is too long, we can use this form 
+    ```
+    cout << "Enter all your homework grades, "
+            "followed by end-of-file: ";
+    ```
+    It has the same effect as 
+    ```
+    cout << "Enter all your homework grades, followed by end-of-file: ";
+    ```
+
+* **Defaul-initialization**:  
+    It is **very import**. When creating a variable, the system randomly allocates **memory** to **uninitialized variables** whose values are also composed of this **random** information.  
+
+* Condition: `cin >> x`, it will be always right, when we don't use **end-of-file signal** to end it.
+
+* Set precision to 3:  
+    * We call a **member function named `precision` of `cout` and define a type `streamsize` to represent sizes.
+
+* `while( cin>>x )`: We explain this in [CH4.1.3]() and [CH12.5]().
+
+* Using medians:  
+    [Page 43] CH3.2.1
 
 
 
