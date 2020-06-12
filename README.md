@@ -414,6 +414,7 @@ int main()
     return 0;
 }
 ```
+## 3.1. Output the final grade with the average of homeworks
 * For this problem we should have 3 steps.  
     1. Read the name of this student.
     2. Read the midterm and final grade.
@@ -451,8 +452,54 @@ int main()
 
 * `while( cin>>x )`: We explain this in [CH4.1.3]() and [CH12.5]().
 
+## 3.2. Output the final grade with the median of homeworks
+
 * Using medians:  
-    [Page 43] CH3.2.1
+    Define `homework`. It is a **vector** and can store `double`.  
+    **Vector** is a **container** that holds a collection of values. We can use a language *feature* named **template classes** to define the **vector type**. [CH11]().
+    
+* push_back(): member function. This function belong to **vector class**. `push_back()` pushes its argument onto the back of a vector. 
+
+* To find the median:  
+    1. We should know `if( size(homework) == 0){}`
+    2. Calculate the **location of the middle elements**.
+    
+    * Get the size of homework:  
+        * We use a language facility named **typedef** to get the size of homework. Because this type `vector<double>::size_type` of vector is too difficult to write. `vec_sz` is complett same with `vector<double>::size_type` but easier.
+        ```
+        typedef vector<double>::size_type vec_sz;
+        vec_sz size = homework.size();
+        ```
+    
+    * Return:  
+        * 0 --> success
+        * 1 --> fail
+        
+* How to get the median of homeworks?
+    * We define a **index** `mid` to describe the median of homeworks' value.
+    * The number of homeworks are **even**:
+        * median is (homework[mid] + homework[mid-1]) / 2
+    * The number of homeworks are **odd**:
+        * median is (homework.size() - 1) / 2
+        
+* `sort(homework.begin(), homework.end())`:  
+    `sort()` belongs to header <algorithm>  
+    `.begin()` und `.end()` are two member function of **vector class**. 
+    
+* operator:  
+We can use **remainder** operator `%` and **conditional** operator `?=` as a shorthand of the if-statement. 
+```
+vec_sz mid = size/2;
+double median;
+median = size % 2 == 0 ? (homework[mid] + homework[mid-1]) / 2
+: homework[mid];
+```
+
+## Summary of CH3
+* For local variables it will be **default initialized** without *initialization*.
+* typedef type name: a synonym for type
+* **`<vector>`**: a **container** can grow dynamically.
+* **`vector<T>::size_type`**: A type guaranteed to be able to **hold** the number of elements in **the largest** possible *vector*.
 
 
 
