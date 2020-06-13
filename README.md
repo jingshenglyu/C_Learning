@@ -2,7 +2,7 @@
  * @Author: Jingsheng Lyu
  * @Date: 2020-06-08 17:23:44
  * @LastEditors: Jingsheng Lyu
- * @LastEditTime: 2020-06-13 11:08:48
+ * @LastEditTime: 2020-06-13 11:38:39
  * @FilePath: /C_Learning/README.md
 --> 
 
@@ -39,6 +39,14 @@
     - [3.1. Output the final grade with the average of homeworks](#31-output-the-final-grade-with-the-average-of-homeworks)
     - [3.2. Output the final grade with the median of homeworks](#32-output-the-final-grade-with-the-median-of-homeworks)
     - [Summary of CH3](#summary-of-ch3)
+- [CH4 Organizing programs and data](#ch4-organizing-programs-and-data)
+    - [4.1. Organizing computations](#41-organizing-computations)
+    - [4.2. Organizing data](#42-organizing-data)
+    - [4.3. Putting it all together](#43-putting-it-all-together)
+    - [4.4. Partitioning the grading program](#44-partitioning-the-grading-program)
+    - [4.5. The revised grading program](#45-the-revised-grading-program)
+    - [4.6 Summary](#46-summary)
+    - [1.](#1)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -453,7 +461,7 @@ int main()
 * Set precision to 3:  
     * We call a **member function** named `precision` of `cout` and define a type `streamsize` to represent sizes.
 
-* `while( cin>>x )`: We explain this in [CH4.1.3]() and [CH12.5]().
+* (?)`while( cin>>x )`: We explain this in [CH4.1.3]() and [CH12.5]().
 
 ## 3.2. Output the final grade with the median of homeworks
 
@@ -497,7 +505,7 @@ We can use **remainder** operator `%` and **conditional** operator `?=` as a sho
     median = size % 2 == 0 ? (homework[mid] + homework[mid-1]) / 2
     : homework[mid];
     ```
-* [Code after optimation]()
+* [Code after optimation](https://github.com/jingshenglyu/C_Learning/blob/master/Cpp_practice/3.2._prac.cpp)
 
 ## Summary of CH3
 * For local variables it will be **default initialized** without *initialization*.
@@ -524,10 +532,30 @@ We can use **remainder** operator `%` and **conditional** operator `?=` as a sho
 
     * `setprecision(n)`: **Return** a value that has the effect of **calling `s.precision(n)`**. Defined in `<iomanip>`
 
-    * `streamsize`: The type of the value expected by setprecision and returned by precision . Defined in
+    * (?)`streamsize`: The type of the value expected by setprecision and returned by precision . Defined in
     `<ios>` .
 
+# CH4 Organizing programs and data
+## 4.1. Organizing computations
+## 4.2. Organizing data
+## 4.3. Putting it all together
+## 4.4. Partitioning the grading program
+## 4.5. The revised grading program
 
+## 4.6 Summary
+* Difference between **Argument** and **Parameter** in C/C++ with Examples
+    * An argument is referred to the values that are passed within a function when the function is called. These values are generally the source of the function that require the arguments during the process of execution. These values are assigned to the variables in the definition of the function that is called. The type of the values passed in the function is the same as that of the variables defined in the function definition. These are also called Actual arguments or Actual Parameters.  
+
+      Example: Suppose a sum() function is needed to be called with two numbers to add. These two numbers are referred to as the arguments and are passed to the sum() when it called from somewhere else.
+
+    * The parameter is referred to as the variables that are defined during a function declaration or definition. These variables are used to receive the arguments that are passed during a function call. These parameters within the function prototype are used during the execution of the function for which it is defined. These are also called Formal arguments or Formal Parameters.
+
+      Example: Suppose a Mult() function is needed to be defined to multiply two numbers. These two numbers are referred to as the parameters and are defined while defining the function Mult().
+
+## 1.
+* Using function:  
+    * **instead of redoing** the computation  
+    * easier for us to **change the computation**  
 
 
 
