@@ -46,7 +46,10 @@
     - [4.4. Partitioning the grading program](#44-partitioning-the-grading-program)
     - [4.5. The revised grading program](#45-the-revised-grading-program)
     - [4.6 Summary](#46-summary)
-    - [1.](#1)
+    - [4.1. Organizing computations](#41-organizing-computations-1)
+        - [4.1.1. Using function:](#411-using-function)
+        - [4.1.2. Define a function:](#412-define-a-function)
+        - [4.1.3. Find median](#413-find-median)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -552,12 +555,52 @@ We can use **remainder** operator `%` and **conditional** operator `?=` as a sho
 
       Example: Suppose a Mult() function is needed to be defined to multiply two numbers. These two numbers are referred to as the parameters and are defined while defining the function Mult().
 
-## 1.
-* Using function:  
+## 4.1. Organizing computations
+### 4.1.1. Using function:  
     * **instead of redoing** the computation  
     * easier for us to **change the computation**  
 
+### 4.1.2. Define a function: 
+* Code: 
+    ```
+    // compute a student's overall grade from midterm and final exam grades and homework grade
+    double grade(double midterm, double final, double homework)
+    {
+    return 0.2 * midterm + 0.4 * final + 0.4 * homework;
+    }
+    ```
 
+    * Parameter list:  
+    It can be **variable**(`double grade(midterm)`) or **expression**(`double grade(sum/count)`).
+    * When we call a funcion, we **must provide** parameter.
+    * What is **call by value**?  
+    **Parameter** takes on a copy of the value of the **argument**.
+        * *So, for example, when we call grade(midterm, final, sum /
+count) , the grade function's parameters are initialized to copies of the arguments' values, and do
+not refer directly to the arguments themselves. This behavior is often called call by value, because
+the parameter takes on a copy of the value of the argument.*
+### 4.1.3. Find median
+* Code: 
+    ```
+    double median(vector<double> vec)
+    {
+        typedef vector<double>::size_type vec_sz;
+        vec_sz size = vec.size();
+        if (size == 0)
+        throw domain_error("median of an empty vector");
+        sort(vec.begin(), vec.end());
+        vec_sz mid = size / 2;
+        return size % 2 == 0 ? (vec[mid] + vec[mid-1]) / 2 : vec[mid];
+    }
+    ```
+* `throw domain_error`:  
+We should make a **error warning** for the user. That more general way is to **throw an exception** if the `vector` is empty.  
+When a program **throws an exception**, execution **stops** in the part of the program in which the throw
+appears, and **passes to another part** of the program, along with an ***exception object***, which
+contains information that the caller can use to act on the exception.
+* `domain_error`: Defined in `<stdexcept>`.
+
+* Rewrite the Code:  
 
 
 
