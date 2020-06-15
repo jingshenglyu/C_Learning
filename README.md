@@ -50,6 +50,8 @@
         - [4.1.1. Using function:](#411-using-function)
         - [4.1.2. Define a function:](#412-define-a-function)
         - [4.1.3. Find median](#413-find-median)
+        - [4.1.4. Two grade functions](#414-two-grade-functions)
+        - [4.1.5. Reading homework grades](#415-reading-homework-grades)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -600,7 +602,54 @@ appears, and **passes to another part** of the program, along with an ***excepti
 contains information that the caller can use to act on the exception.
 * `domain_error`: Defined in `<stdexcept>`.
 
-* Rewrite the Code:  
+* Rewrite the calculation's Code:  
+```
+double grade(double midterm, double final, const vector<double>& hw)
+{
+    if (hw.size() == 0)
+    throw domain_error("student has done no homework");
+    return grade(midterm, final, median(hw));
+}
+```
+* `const vector<double>& hw`: **reference** to *vector* of `const double`  
+* **Reference**:
+    ```
+    vector<double> homework;
+    vector<double>& hw = homework; // hw is a synonym for homework
+    ```
+    * We are saying that `hw` is **another name** for `homework`. Anything we do to `hw` is *equivalent* to doing the same thing to `homework`. **`hw` is a *synonym* for `homework`**. Using `const` we can't change the value of `chw` in  `const vector<double>& chw=homework`.
+
+* Detail: When we call a function, we can think of the **parameters as local  variable** whose initial values are **the arguments**. Copying the arguments into the parameters.(当我们调用函数时，我们会用本地变量的实参去初始化函数的形参，这个过程中实参会拷贝到形参中，而不是改变形参。)
+
+### 4.1.4. Two grade functions
+* By §4.1..2 we have defined a function named `double grade(double midterm, double final, double homework)`.
+```
+// 4.1. Func
+double grade(double midterm, double final, double homework)
+{
+    return 0.2 * midterm + 0.4 * final + 0.4 * homework;
+}
+```
+But now by §4.1.3. We have already defined a function named `double grade(double midterm, double final, const vector<double>& hw)` too. It is called **overloading**, here is called **function overloading**.
+```
+double grade(double midterm, double final, const vector<double>& hw)
+{
+    if (hw.size() == 0)
+    throw domain_error("student has done no homework");
+    return grade(midterm, final, median(hw));
+}
+```
+* It will not be confused. Because we will call a function with **their parameter list**. They are different. 
+
+### 4.1.5. Reading homework grades
+```
+// read homework grades from an input stream into a vector<double>
+istream& read_hw(istream& in, vector<double>& hw) 
+{
+    // we must fill in this part
+    return in;
+}
+```
 
 
 
