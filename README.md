@@ -52,6 +52,7 @@
         - [4.1.3. Find median](#413-find-median)
         - [4.1.4. Two grade functions](#414-two-grade-functions)
         - [4.1.5. Reading homework grades](#415-reading-homework-grades)
+        - [4.1.6. Three kinds of function parameters](#416-three-kinds-of-function-parameters)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -619,7 +620,7 @@ double grade(double midterm, double final, const vector<double>& hw)
     ```
     * We are saying that `hw` is **another name** for `homework`. Anything we do to `hw` is *equivalent* to doing the same thing to `homework`. **`hw` is a *synonym* for `homework`**. Using `const` we can't change the value of `chw` in  `const vector<double>& chw=homework`.
 
-* Detail: When we call a function, we can think of the **parameters as local  variable** whose initial values are **the arguments**. Copying the arguments into the parameters.(当我们调用函数时，我们会用本地变量的实参去初始化函数的形参，这个过程中实参会拷贝到形参中，而不是改变形参。)
+* Detail: Copying the arguments into the parameters.(实参会拷贝到形参中，而不是改变形参。)
 
 ### 4.1.4. Two grade functions
 * By §4.1..2 we have defined a function named `double grade(double midterm, double final, double homework)`.
@@ -644,13 +645,43 @@ double grade(double midterm, double final, const vector<double>& hw)
 ### 4.1.5. Reading homework grades
 ```
 // read homework grades from an input stream into a vector<double>
-istream& read_hw(istream& in, vector<double>& hw) 
+istream& read_hw(istream& in, vector<double>& hw)
 {
-    // we must fill in this part
+    if (in) {
+        // get rid of previous contents
+        hw.clear() ;
+        // read homework grades
+        double x;
+        while (in >> x)
+        hw.push_back(x);
+        // clear the stream so that input will work for the next student
+        in.clear();
+    }
     return in;
 }
 ```
+1. clear the history homework grades 
+2. read the homework grades
+3. clear the homework grades for the next student
+* Ref<sup>[3]</sup>
 
+### 4.1.6. Three kinds of function parameters
+* `median(vector<double>)`:  
+Therefore, calling that
+function **causes** *the argument* **to be copied**, even though that argument might be a huge vector . The median function **sorts its
+parameter**. *If it did not copy its argument*, then calling median(homework) would **change the value
+of homework**.
+* `grade(const vector<double>&)`:  
+The `&` asks the implementation not to copy the argument, and the
+`const` promises that the program will not change the parameter.Such parameters are an important
+technique for making programs more efficient. They are a good idea whenever the function will **not
+change the parameter's value**, and the parameter is of a type, such as vector or string , with values
+that might be time-consuming to copy.
+* `read_hw(vector<double>&)`:  
+Without the const . Again, the `&`
+asks the implementation to **bind the parameter** directly to the **argument**, thus avoiding having to
+copy the argument. But here, the reason to **avoid the copy** is that *the function* intends to *change the
+argument's value*.
 
 
 
@@ -659,3 +690,4 @@ istream& read_hw(istream& in, vector<double>& hw)
 # Reference
 1. Jianfeng Qin, Xiaojiang Ke, Tu Lan: Accelerated C++, Practical Programming by Example in Chinese. [PDF](https://github.com/liulinbo/slam/blob/master/Accelerated%20C%2B%2B%E4%B8%AD%E6%96%87%E7%89%88.pdf)
 2. Andrew Koening Barbara E. Moo: Accelerated C++, Practical Programming by Example in English.[PDF](https://www.pdfdrive.com/accelerated-c-andrew-koenig-barbara-e-moopdf-e37303819.html)
+3. Page. 57 --- Jianfeng Qin, Xiaojiang Ke, Tu Lan: Accelerated C++, Practical Programming by Example in Chinese. [PDF](https://github.com/liulinbo/slam/blob/master/Accelerated%20C%2B%2B%E4%B8%AD%E6%96%87%E7%89%88.pdf)
