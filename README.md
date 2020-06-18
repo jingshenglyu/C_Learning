@@ -53,6 +53,11 @@
         - [4.1.4. Two grade functions](#414-two-grade-functions)
         - [4.1.5. Reading homework grades](#415-reading-homework-grades)
         - [4.1.6. Three kinds of function parameters](#416-three-kinds-of-function-parameters)
+        - [4.1.7. Using functions to calculate a student's grade](#417-using-functions-to-calculate-a-students-grade)
+    - [4.2. Organizing data](#42-organizing-data-1)
+        - [4.2.1. Reading data](#421-reading-data)
+        - [4.2.2. Managing the student record](#422-managing-the-student-record)
+        - [4.2.3. Generating the report](#423-generating-the-report)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -682,6 +687,98 @@ Without the const . Again, the `&`
 asks the implementation to **bind the parameter** directly to the **argument**, thus avoiding having to
 copy the argument. But here, the reason to **avoid the copy** is that *the function* intends to *change the
 argument's value*.
+
+### 4.1.7. Using functions to calculate a student's grade
+* Code:
+    ```
+    // include directives and using-declarations for library facilities
+    // code for median function from §4.1.1/53
+    // code for grade(double, double, double) function from §4.1/52
+    // code for grade(double, double, const vector<double>&) function from §4.1.2/54
+    // code for read_hw(istream&, vector<double>&) function from §4.1.3/57
+    int main()
+    {
+        // ask for and read the student's name
+        cout << "Please enter your first name: ";
+        string name;
+        cin >> name;
+        cout << "Hello, " << name << "!" << endl;
+        // ask for and read the midterm and final grades
+        cout << "Please enter your midterm and final exam grades: ";
+        double midterm, final;
+        cin >> midterm >> final;
+        // ask for the homework grades
+        cout << "Enter all your homework grades, "
+            "followed by end-of-file: ";
+        vector<double> homework;
+        // read the homework grades
+        read_hw(cin, homework);
+        // compute and generate the final grade, if possible
+        try
+        {
+            double final_grade = grade(midterm, final, homework);
+            streamsize prec = cout.precision();
+            cout << "Your final grade is " << setprecision(3)
+                 << final_grade << setprecision(prec) << endl;
+        }
+        catch (domain_error)
+        {
+            cout << endl
+                 << "You must enter your grades. "
+                "Please try again."
+                 << endl;
+            return 1;
+        }
+        return 0;
+    }
+    ```
+* **try statement**:  
+If a `domain_error` occurs anywhere in these statements, then it stops executing them and continues with the **catch clause**. If the statements between `try` and `catch` complete **without throwing an exception**, then the program **skips** the **catch clause** entirely and continues with the next statement.
+* A good rule for **exception**:  
+*Throwing an exception* is a **side effect**, so a statement that might **throw an exception** should **not cause any other side effects**, *particularly including input and output*.(抛出异常后(try{**这里**})，该语句中不应该再包含其他输入/输出语句)
+
+## 4.2. Organizing data
+### 4.2.1. Reading data
+* We can define a `struct` including *name*, *midterm*, *final* and *homeworks*. 
+```
+struct Student_info
+{
+    string name;
+    double midterm, final;
+    vector<double> homework;
+}; // note the semicolon it's required
+```
+
+### 4.2.2. Managing the student record
+* Using `sort()` to compare the students' name and sort them. But we can only use `sort()` to sort the **vector**. If we want to sort the object - students, we must define a new function - *compare()* again.
+```
+bool compare(const Student_info& x, const Student_info& y)
+{
+    return x.name < y.name;
+}
+```
+
+
+### 4.2.3. Generating the report
+* `max()`:  
+The type of parameters list must be same. We discuss them again in [§8.1.3](). 
+
+* `setw()`:  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
