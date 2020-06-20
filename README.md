@@ -58,6 +58,8 @@
         - [4.2.1. Reading data](#421-reading-data)
         - [4.2.2. Managing the student record](#422-managing-the-student-record)
         - [4.2.3. Generating the report](#423-generating-the-report)
+    - [4.3. Putting all together](#43-putting-all-together)
+    - [4.4. Summary](#44-summary)
 - [Reference](#reference)
 
 <!-- /TOC -->
@@ -764,12 +766,87 @@ bool compare(const Student_info& x, const Student_info& y)
 The type of parameters list must be same. We discuss them again in [§8.1.3](). 
 
 * `setw()`:  
+set the width of the characters for the output's format.  
+We write the **name** member from that object, using `setw()` to pad the output.   
+**We can also use an constructed `string` of blanks to pad the output.**   
+For example: `string(maxlen + 1 - students[i].name.size(), ' ')` and `setw(maxlen + 1) << students[i].name`
 
+## 4.3. Putting all together
+* Header files should ensure that it is *safe to include the file* more than once as part of compiling the program. We do so by adding some ***preprocessor*** to the file.
+```
+#ifndef GUARD_median_h
+#define GUARD_median_h
+// median.h—final version
+#include <vector>
+double median(std::vector<double>);
+#endif
+```
+* `#ifndef`: *if not define*   
 
+## 4.4. Summary
+* Program structure:  
+    * #include<system-header>
+    * #include"user-define-header-file-name"
 
+* Types:  
+    * `T&`: A **reference** to the type `T`
+    * `const T&`: A **reference** to the type `T` that may **not** be used to **change the vaule** to which the reference is bound.
 
+* Structures:  
+A structure is a type that contains zero or more members.
+```
+struct type-name {
+    type-specifier member-name;
+    ...
+}; // note the semicolon
+```
 
+* Functions:  
+A function must be **declared** in every source file that uses it, and **defined onlyonce**.
+```
+ret-type function-name (parm-decls)  //function declaration
+[inline] ret-typefunction-name (parm-decls) {  //function definition
+    // function body goes here;
+}
+```
 
+* Exception handling:  
+```
+try { //code
+
+Initiates a block that might throw an exception.
+
+} catch(t){ /*code*/ }
+
+Concludes the try block and handles exceptions that match the type t . The code following
+the catch performs whatever action is appropriate to handle the exception reported in t .
+
+throw e;
+
+Terminates the current function; throws the value e back to the caller.
+```
+
+* Exception classes:  
+
+`logic_error`,   `domain_error`,  `invalid_argument`  
+
+`length_error`,   `out_of_range`,   `runtime_error`  
+
+`range_error`,   `overflow_error`,    `underflow_error`
+
+`e.what()`: returns a value that reports on what happened to cause the error.
+
+* Library facilities:  
+`s1 < s2`:  
+Compares **string's** `s1` and `s2` by applying *dictionary ordering*.
+
+`s.width(n)`:
+Sets the **width** of **stream** `s` to `n` for the next output operation. Call `width(0)` to **reset**
+the width.
+
+`setw(n)`: 
+Returns a value of type **streamsize** that, when written on an output stream `s` , has
+the effect of calling `s.width(n)` .
 
 
 
