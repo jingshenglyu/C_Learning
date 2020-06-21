@@ -1,6 +1,14 @@
+/*
+ * @Author: Jingsheng Lyu
+ * @Date: 2020-05-19 21:43:19
+ * @LastEditors: Jingsheng Lyu
+ * @LastEditTime: 2020-06-21 08:35:54
+ * @FilePath: /C_Learning/C++_ZL/chapter9_Template/9_1_FuncTemplate.cpp
+ */ 
 // 9.1 function template
 
 #include<iostream>
+
 using namespace std;
 
 template<class T>   //define the function template
