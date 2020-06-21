@@ -2,8 +2,8 @@
  * @Author: Jingsheng Lyu
  * @Date: 2020-06-13 11:04:55
  * @LastEditors: Jingsheng Lyu
- * @LastEditTime: 2020-06-13 11:05:30
- * @FilePath: /undefined/home/jingsheng/C_Learning/Cpp_practice/3.2._prac.cpp
+ * @LastEditTime: 2020-06-21 08:34:44
+ * @FilePath: /C_Learning/Cpp_practice/3.2._prac.cpp
  */ 
 #include <algorithm>
 #include <iomanip>
@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using std::cin;
 using std::cout;
 using std::endl;
@@ -19,6 +20,7 @@ using std::sort;
 using std::streamsize;
 using std::string;
 using std::vector;
+
 int main()
 {
     // ask for and read the student's name
